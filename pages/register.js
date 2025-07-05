@@ -3,6 +3,7 @@ import { Form, Button, Card, Spinner, Container } from 'react-bootstrap';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import Link from 'next/link';
+import Head from 'next/head';
 
 export default function PhoneOtpRegister() {
     const [step, setStep] = useState(1); // 1: Phone, 2: OTP, 3: Name & Password
@@ -106,86 +107,91 @@ export default function PhoneOtpRegister() {
     };
 
     return (
-        <Container fluid style={{ backgroundColor: '#FFFFFF', height: '75vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Card style={{ width: '100%', maxWidth: '400px' }}>
-                <Card.Body>
-                    <h5 className="text-center fw-bold mb-4">
-                        {step === 1 && 'Register with Phone'}
-                        {step === 2 && 'Verify OTP'}
-                        {step === 3 && 'Set Name & Password'}
-                    </h5>
+        <>
+            <Head>
+                <title>Register - IYF Lalmonirhat</title>
+            </Head>
+            <Container fluid style={{ backgroundColor: '#FFFFFF', height: '75vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Card style={{ width: '100%', maxWidth: '400px' }}>
+                    <Card.Body>
+                        <h5 className="text-center fw-bold mb-4">
+                            {step === 1 && 'Register with Phone'}
+                            {step === 2 && 'Verify OTP'}
+                            {step === 3 && 'Set Name & Password'}
+                        </h5>
 
-                    {step === 1 && (
-                        <Form onSubmit={handleSendOtp}>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Phone Number</Form.Label>
-                                <Form.Control
-                                    type="tel"
-                                    value={phone}
-                                    onChange={(e) => setPhone(e.target.value)}
-                                    placeholder="e.g. 017XXXXXXXX"
-                                    required
-                                />
-                            </Form.Group>
-                            <Button type="submit" variant="primary" disabled={loading} className="w-100">
-                                {loading ? <Spinner size="sm" animation="border" /> : 'Send OTP'}
-                            </Button>
-                        </Form>
-                    )}
+                        {step === 1 && (
+                            <Form onSubmit={handleSendOtp}>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>Phone Number</Form.Label>
+                                    <Form.Control
+                                        type="tel"
+                                        value={phone}
+                                        onChange={(e) => setPhone(e.target.value)}
+                                        placeholder="e.g. 017XXXXXXXX"
+                                        required
+                                    />
+                                </Form.Group>
+                                <Button type="submit" variant="primary" disabled={loading} className="w-100">
+                                    {loading ? <Spinner size="sm" animation="border" /> : 'Send OTP'}
+                                </Button>
+                            </Form>
+                        )}
 
-                    {step === 2 && (
-                        <Form onSubmit={handleVerifyOtp}>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Enter OTP</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    value={otp}
-                                    onChange={(e) => setOtp(e.target.value)}
-                                    placeholder="Enter OTP"
-                                    required
-                                />
-                            </Form.Group>
-                            <Button type="submit" variant="success" className="w-100">
-                                Verify OTP
-                            </Button>
-                        </Form>
-                    )}
+                        {step === 2 && (
+                            <Form onSubmit={handleVerifyOtp}>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>Enter OTP</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        value={otp}
+                                        onChange={(e) => setOtp(e.target.value)}
+                                        placeholder="Enter OTP"
+                                        required
+                                    />
+                                </Form.Group>
+                                <Button type="submit" variant="success" className="w-100">
+                                    Verify OTP
+                                </Button>
+                            </Form>
+                        )}
 
-                    {step === 3 && (
-                        <Form onSubmit={handleRegister}>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Full Name</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                    required
-                                />
-                            </Form.Group>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Create Password</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    required
-                                />
-                            </Form.Group>
-                            <Button type="submit" variant="success" disabled={loading} className="w-100">
-                                {loading ? <Spinner size="sm" animation="border" /> : 'Register'}
-                            </Button>
-                        </Form>
-                    )}
-                </Card.Body>
+                        {step === 3 && (
+                            <Form onSubmit={handleRegister}>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>Full Name</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                        required
+                                    />
+                                </Form.Group>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>Create Password</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                    />
+                                </Form.Group>
+                                <Button type="submit" variant="success" disabled={loading} className="w-100">
+                                    {loading ? <Spinner size="sm" animation="border" /> : 'Register'}
+                                </Button>
+                            </Form>
+                        )}
+                    </Card.Body>
 
-                <div className="mt-3 text-center mb-3">
-                    <span className="small">
-                        Don't have an account?{' '}
-                        <Link href="/login" className="text-primary text-decoration-none">Sign In</Link>
-                    </span>
-                </div>
-            </Card>
-            <ToastContainer />
-        </Container>
+                    <div className="mt-3 text-center mb-3">
+                        <span className="small">
+                            Don't have an account?{' '}
+                            <Link href="/login" className="text-primary text-decoration-none">Sign In</Link>
+                        </span>
+                    </div>
+                </Card>
+                <ToastContainer />
+            </Container>
+        </>
     );
 }

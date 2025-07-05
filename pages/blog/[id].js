@@ -5,6 +5,7 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import Link from 'next/link';
 import TopPosts from '@/components/TopPosts';
 import CommentsSection from '@/components/CommentsSection';
+import SponsorCard from '../../components/SponsorCard';
 
 
 const BlogPage = ({ blog, topPosts }) => {
@@ -14,7 +15,7 @@ const BlogPage = ({ blog, topPosts }) => {
   return (
     <>
       <Head>
-        <title>{blog?.title} - IYFL Almonirhat Blog</title>
+        <title>{blog?.title} - IYF Lalmonirhat Blog</title>
         <meta name="description" content={blog?.content || 'Read this blog to learn more.'} />
         <meta property="og:title" content={blog?.title} />
         <meta property="og:description" content={blog?.content} />
@@ -60,6 +61,7 @@ const BlogPage = ({ blog, topPosts }) => {
 
           {/* Right: Top Posts */}
           <Col md={3} className="d-none d-md-block">
+            <SponsorCard />
             <TopPosts />
 
           </Col>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Card, Spinner } from 'react-bootstrap';
 import Link from 'next/link';
+import Head from 'next/head';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -27,6 +28,10 @@ export default function UsersPage() {
   }, []);
 
   return (
+    <>
+    <Head>
+        <title>Top Users - IYF Lalmonirhat</title>
+      </Head>
     <Card className="shadow-sm border-0 mb-4">
       <Card.Header className="bg-success text-white fw-bold">🏆 Top Users</Card.Header>
       <Card.Body>
@@ -53,5 +58,6 @@ export default function UsersPage() {
         )}
       </Card.Body>
     </Card>
+    </>
   );
 }

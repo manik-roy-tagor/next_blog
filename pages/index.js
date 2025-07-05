@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import BlogCard from '@/components/BlogCard';
 import TopUserList from '@/components/TopUserList';
 import AddPost from '@/components/AddPost';
+import SponsorCard from '../components/SponsorCard';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -54,7 +55,7 @@ export default function HomePage() {
   return (
     <>
       <Head>
-        <title>IYFL Lalmonirhat - Youth Blog & Community</title>
+        <title>IYF Lalmonirhat - Youth Blog & Community</title>
         <meta name="description" content="Explore blogs from youth of Lalmonirhat. Stay updated with ideas, stories, opinions, and news." />
         <meta name="keywords" content="blog, youth, IYFL, Lalmonirhat, community, stories, education" />
         <meta name="author" content="IYFL Lalmonirhat" />
@@ -90,7 +91,7 @@ export default function HomePage() {
             </div>
           </Col>
 
-          <Col xs={12} md={7} className="mx-auto">
+          <Col xs={12} md={6} className="mx-auto">
             <div style={{ minHeight: '60vh', paddingRight: '10px' }}>
               {isLoggedIn && <AddPost />}
 
@@ -116,7 +117,7 @@ export default function HomePage() {
             </div>
           </Col>
 
-          <Col md={2} className="mb-4 d-none d-md-block">
+          <Col md={3} className="mb-4 d-none d-md-block">
             <TopUserList />
           </Col>
         </Row>

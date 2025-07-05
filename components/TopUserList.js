@@ -27,7 +27,7 @@ export default function TopUserList() {
     }, []);
 
     return (
-        <div style={{ position: 'fixed', top: '80px', right: 0, width: '16.6667%', height: '75vh', overflowY: 'auto', paddingLeft: '15px' }}>
+        <div style={{ position: 'fixed', top: '80px', width: '25%', right: 0, height: '75vh', overflowY: 'auto', paddingLeft: '15px' }}>
             <Card className="shadow-sm border-0" style={{ background: '#fff' }}>
                 <Card.Header className="bg-success text-white fw-bold">Top Users</Card.Header>
                 <Card.Body>

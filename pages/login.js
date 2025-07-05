@@ -37,7 +37,7 @@ export default function LoginPage() {
   return (
     <>
       <Head>
-        <title>Login - IYFL Lalmonirhat</title>
+        <title>Login - IYF Lalmonirhat</title>
       </Head>
 
       <div className="d-flex align-items-center justify-content-center vh-100 bg-light">
