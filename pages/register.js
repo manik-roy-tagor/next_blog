@@ -93,6 +93,7 @@ export default function PhoneOtpRegister() {
                 setName('');
                 setPassword('');
                 setOtp('');
+                router.push('/login');
             } else {
                 toast.error(res.data.message || 'Registration failed.');
             }

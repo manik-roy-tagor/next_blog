@@ -128,13 +128,13 @@ export default function Navbar() {
                     <span className="material-icons" style={{ fontSize: 24 }}>home</span>
                     <small>Home</small>
                 </Link>
-                <Link href="/calendar" className="nav-link d-flex flex-column align-items-center justify-content-center" style={{ color: router.pathname === '/calendar' ? '#007bff' : '#888' }}>
-                    <span className="material-icons" style={{ fontSize: 24 }}>category</span>
-                    <small>Calendar</small>
+                <Link href="/topposts" className="nav-link d-flex flex-column align-items-center justify-content-center" style={{ color: router.pathname === '/topposts' ? '#007bff' : '#888' }}>
+                    <span className="material-icons" style={{ fontSize: 24 }}>star</span>
+                    <small>Top Posts</small>
                 </Link>
-                <Link href="/books" className="nav-link d-flex flex-column align-items-center justify-content-center" style={{ color: router.pathname === '/books' ? '#007bff' : '#888' }}>
+                <Link href="/users" className="nav-link d-flex flex-column align-items-center justify-content-center" style={{ color: router.pathname === '/users' ? '#007bff' : '#888' }}>
                     <span className="material-icons" style={{ fontSize: 24 }}>menu_book</span>
-                    <small>Books</small>
+                    <small>Users</small>
                 </Link>
                 {isLoggedIn ? (
                     <button
