@@ -8,15 +8,15 @@ export default function TopUserList() {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     useEffect(() => {
-        const currentUser = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
-        const currentUserId = currentUser ? JSON.parse(currentUser).id : null;
-
         const fetchUsers = async () => {
             try {
-                const res = await axios.get(`${API_URL}getAllUsers.php`);
+                // Fetch users with the most posts from the new API
+                const res = await axios.get(`${API_URL}top-users.php`);
                 if (res.data.status === 'success') {
-                    const filtered = res.data.data.filter(u => parseInt(u.id) !== parseInt(currentUserId));
-                    setUsers(filtered);
+                    console.log('Fetched users:', res.data.data); // Debug log
+                    setUsers(res.data.data);
+                } else {
+                    console.error('Failed to load users:', res.data.message);
                 }
             } catch (err) {
                 console.error('Error loading users', err.message);
@@ -45,7 +45,11 @@ export default function TopUserList() {
                                     >
                                         account_circle
                                     </span>
-                                    <span className="fw-semibold"><Link href={`/user/${user.id}`}>{user.name}</Link></span>
+                                    <span className="fw-semibold">
+                                        <Link href={`/user/${user.id}`}>
+                                            {user.name} - ({user.post_count})
+                                        </Link>
+                                    </span>
                                 </li>
                             ))
                         ) : (
