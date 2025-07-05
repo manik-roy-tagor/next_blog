@@ -31,11 +31,11 @@ export default function BlogCard({ blog, onLike }) {
       });
 
       if (res.data.status === 'success') {
-        // toast.success('Blog liked successfully!', {
-        //   position: 'top-right',
-        //   autoClose: 2000,
-        // });
         onLike(blog.id);
+        toast.success('Blog liked successfully!', {
+          position: 'top-right',
+          autoClose: 2000,
+        });        
       } else {
         toast.error('Already Liked.', {
           position: 'top-right',
@@ -50,6 +50,8 @@ export default function BlogCard({ blog, onLike }) {
       });
     }
   };
+
+  
 
   return (
     <Card className="shadow-sm border-0 rounded-4 mb-4">

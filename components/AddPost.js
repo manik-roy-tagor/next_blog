@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 
-   const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const AddPost = () => {
   const [formData, setFormData] = useState({
@@ -91,7 +91,7 @@ const AddPost = () => {
           ></textarea>
         </div>
         <button type="submit" className="btn btn-success w-100">
-          📤 Publish Post
+          Publish Post
         </button>
       </form>
     </div>

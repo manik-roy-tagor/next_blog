@@ -15,7 +15,6 @@ return (
         </div>
         <Footer />
         
-      <ToastContainer />
     </>
 );
 }
