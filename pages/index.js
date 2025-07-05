@@ -12,43 +12,37 @@ import AddPost from '@/components/AddPost';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function HomePage() {
-  const [blogs, setBlogs] = useState([]); // Store blogs fetched from the backend
-  const [page, setPage] = useState(1); // Pagination for loading more blogs
-  const [hasMore, setHasMore] = useState(true); // Check if there are more blogs to load
-  const [isClient, setIsClient] = useState(false); // To handle client-side only code
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track if the user is logged in
+  const [blogs, setBlogs] = useState([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [isClient, setIsClient] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Function to load blogs from the backend
   const loadBlogs = async () => {
     try {
       const res = await axios.get(`${API_URL}blogs.php?page=${page}`);
-
       if (res.data.status === 'success' && Array.isArray(res.data.data)) {
         const newBlogs = res.data.data.filter(blog => blog && blog.id);
         setBlogs(prev => [...prev, ...newBlogs]);
         setHasMore(newBlogs.length > 0);
       } else {
-        setHasMore(false); // No more blogs to load
+        setHasMore(false);
       }
     } catch (err) {
       console.error('Error loading blogs:', err);
     }
   };
 
-  // Ensure the component only runs on the client
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  // Check if the user is logged in and load blogs once the page is loaded
   useEffect(() => {
     const user = localStorage.getItem('user');
     if (user) setIsLoggedIn(true);
-
-    if (isClient) loadBlogs(); // Load blogs when the page is ready
+    if (isClient) loadBlogs();
   }, [page, isClient]);
 
-  // Function to handle the like button click and update the like count
   const handleLike = (blogId) => {
     setBlogs(prev =>
       prev.map(blog =>
@@ -57,52 +51,28 @@ export default function HomePage() {
     );
   };
 
-
   return (
     <>
       <Head>
         <title>IYFL Lalmonirhat - Youth Blog & Community</title>
-        <meta
-          name="description"
-          content="Explore blogs from youth of Lalmonirhat. Stay updated with ideas, stories, opinions, and news."
-        />
+        <meta name="description" content="Explore blogs from youth of Lalmonirhat. Stay updated with ideas, stories, opinions, and news." />
         <meta name="keywords" content="blog, youth, IYFL, Lalmonirhat, community, stories, education" />
         <meta name="author" content="IYFL Lalmonirhat" />
         <meta property="og:title" content="IYFL Lalmonirhat Blog" />
-        <meta
-          property="og:description"
-          content="A platform to read and share inspiring youth stories from Lalmonirhat."
-        />
+        <meta property="og:description" content="A platform to read and share inspiring youth stories from Lalmonirhat." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="http://localhost:2000/" />
         <meta property="og:image" content="/default-og-image.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="IYFL Lalmonirhat Blog" />
-        <meta
-          name="twitter:description"
-          content="Read and share inspiring youth stories from Lalmonirhat."
-        />
+        <meta name="twitter:description" content="Read and share inspiring youth stories from Lalmonirhat." />
         <meta name="twitter:image" content="/default-og-image.jpg" />
       </Head>
 
-      <Container
-        fluid
-        className="py-4"
-        style={{ marginTop: '0px', background: '#f8fafc', minHeight: '75vh', overflow: 'hidden' }}
-      >
+      <Container fluid className="py-4" style={{ marginTop: '0px', background: '#f8fafc', minHeight: '75vh', overflow: 'hidden' }}>
         <Row>
           <Col md={3} className="mb-4 d-none d-md-block">
-            <div
-              style={{
-                position: 'fixed',
-                top: '80px',
-                left: 0,
-                width: '23%',
-                height: '80vh',
-                overflowY: 'auto',
-                paddingRight: '15px',
-              }}
-            >
+            <div style={{ position: 'fixed', top: '80px', left: 0, width: '23%', height: '80vh', overflowY: 'auto', paddingRight: '15px' }}>
               <div className="shadow-sm border-0 bg-white">
                 <div className="bg-primary text-white fw-bold p-2">Categories</div>
                 <div className="p-2">

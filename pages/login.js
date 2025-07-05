@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import Cookies from 'js-cookie';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -82,6 +82,7 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }

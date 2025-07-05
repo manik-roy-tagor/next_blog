@@ -1,3 +1,4 @@
+"use client"
 // components/BlogCard.js
 import { Card, Button } from 'react-bootstrap';
 import Link from 'next/link';
@@ -7,7 +8,7 @@ import axios from 'axios';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export default function BlogCard({ blog, onLike }) {
 
-  
+
   const handleLike = async () => {
     const user = localStorage.getItem('user');
     if (!user) {
@@ -35,7 +36,7 @@ export default function BlogCard({ blog, onLike }) {
         toast.success('Blog liked successfully!', {
           position: 'top-right',
           autoClose: 2000,
-        });        
+        });
       } else {
         toast.error('Already Liked.', {
           position: 'top-right',
@@ -51,7 +52,7 @@ export default function BlogCard({ blog, onLike }) {
     }
   };
 
-  
+
 
   return (
     <Card className="shadow-sm border-0 rounded-4 mb-4">
@@ -62,7 +63,7 @@ export default function BlogCard({ blog, onLike }) {
       )}
       <Card.Body>
         <Card.Title className="fw-bold fs-4">{blog.title}</Card.Title>
-        <Card.Text className="text-muted">{blog.content}</Card.Text>
+        <Card.Text dangerouslySetInnerHTML={{ __html: blog.content }} />
         <div className="d-flex justify-content-between align-items-center mb-2">
           <div className="d-flex align-items-center">
             <span className="text-danger"><b>❤️</b> {blog.like_count}</span>

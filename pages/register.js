@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Form, Button, Card, Spinner, Container } from 'react-bootstrap';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import Link from 'next/link';
 
 export default function PhoneOtpRegister() {
@@ -184,6 +184,7 @@ export default function PhoneOtpRegister() {
                     </span>
                 </div>
             </Card>
+            <ToastContainer />
         </Container>
     );
 }

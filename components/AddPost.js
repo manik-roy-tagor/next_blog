@@ -66,7 +66,7 @@ const AddPost = () => {
   if (isCheckingAuth || !userId) return null; // Avoid rendering before auth check
 
   return (
-    <div className="container my-4">
+    <div className="container mb-4">
       <form onSubmit={handleSubmit} className="card shadow-sm p-4">
         <div className="mb-3">
           <label htmlFor="title" className="form-label fw-bold">Title</label>
