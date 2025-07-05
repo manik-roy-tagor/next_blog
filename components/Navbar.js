@@ -1,20 +1,43 @@
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 
+
 export default function Navbar() {
-    const token = Cookies.get('token');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [username, setUsername] = useState('');
+    const [userid, setUserid] = useState('');
     const router = useRouter();
+
+    useEffect(() => {
+        const token = Cookies.get('token');
+        const user = localStorage.getItem('user');
+        if (token && user) {
+            setIsLoggedIn(true);
+            try {
+                const parsed = JSON.parse(user);
+                setUsername(parsed.name || 'User');
+                setUserid(parsed.id || '');
+            } catch {
+                setUsername('User');
+            }
+        } else {
+            setIsLoggedIn(false);
+            setUsername('');
+        }
+    }, [router.asPath]);
 
     const logout = () => {
         Cookies.remove('token');
+        localStorage.removeItem('user');
+        setIsLoggedIn(false);
         router.push('/login');
     };
 
-    // Responsive Navbar/Footer
     return (
         <>
-            {/* Header Navbar for all devices */}
+            {/* Header Navbar */}
             <nav
                 className="navbar navbar-expand-lg px-3"
                 style={{
@@ -27,18 +50,51 @@ export default function Navbar() {
                 }}
             >
                 <Link href="/" className="navbar-brand text-white">
-                    MyApp
+                    Giridhari Lal
                 </Link>
-                <div className="ms-auto">
-                    {token ? (
-                        <>
-                            <Link href="/messenger" className="btn btn-outline-light me-2">
-                                Messenger
+                <div className="ms-auto d-flex align-items-center">
+                    {isLoggedIn ? (
+                        <div
+                            className="d-flex justify-content-between align-items-center"
+                            style={{ flexDirection: 'row' }} // Ensures buttons are aligned in a row
+                        >
+                            {/* User Profile Button */}
+                            <Link href={`/user/${userid}`}
+                                className="btn btn-outline-light dropdown-toggle d-flex align-items-center"
+                                type="button"
+                                id="userMenu"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                style={{ marginRight: '8px', padding: '8px 16px' }} // Space between the profile button and logout
+                            >
+                                <span className="material-icons me-1" style={{ fontSize: 20 }}>account_circle</span>
+                                {username}
                             </Link>
-                            <button className="btn btn-outline-light" onClick={logout}>
+
+                            {/* Logout Button */}
+                            <button
+                                onClick={logout}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    padding: '8px 16px',
+                                    backgroundColor: '#fff',
+                                    border: '1px solid #fff',
+                                    borderRadius: '4px',
+                                    color: '#333',
+                                    fontSize: '16px',
+                                    cursor: 'pointer',
+                                    textAlign: 'left',
+                                    gap: '8px',
+                                }}
+                                className="d-none d-md-flex"  // Hide on small devices, show on medium and above
+                            >
+                                <span className="material-icons" style={{ fontSize: 20 }}>logout</span>
                                 Logout
                             </button>
-                        </>
+
+
+                        </div>
                     ) : (
                         <>
                             <Link href="/login" className="btn btn-outline-light me-2">
@@ -50,9 +106,10 @@ export default function Navbar() {
                         </>
                     )}
                 </div>
+
             </nav>
 
-            {/* Footer Navbar for small devices (Android-style with icons) */}
+            {/* Footer Navbar (Mobile) */}
             <nav
                 className="navbar navbar-expand d-flex d-md-none justify-content-around align-items-center"
                 style={{
@@ -67,51 +124,48 @@ export default function Navbar() {
                     boxShadow: '0 -2px 8px rgba(0,0,0,0.05)'
                 }}
             >
-                <Link href="/" className="nav-link text-center" style={{ color: router.pathname === '/' ? '#007bff' : '#888' }}>
-                    <span className="material-icons" style={{ fontSize: 24, display: 'block' }}>home</span>
-                    <small style={{ fontSize: 12 }}>Home</small>
+                <Link href="/" className="nav-link d-flex flex-column align-items-center justify-content-center" style={{ color: router.pathname === '/' ? '#007bff' : '#888' }}>
+                    <span className="material-icons" style={{ fontSize: 24 }}>home</span>
+                    <small>Home</small>
                 </Link>
-                <Link href="/" className="nav-link text-center" style={{ color: router.pathname === '/' ? '#007bff' : '#888' }}>
-                    <span className="material-icons" style={{ fontSize: 24, display: 'block' }}>category</span>
-                    <small style={{ fontSize: 12 }}>Category</small>
+                <Link href="/calendar" className="nav-link d-flex flex-column align-items-center justify-content-center" style={{ color: router.pathname === '/calendar' ? '#007bff' : '#888' }}>
+                    <span className="material-icons" style={{ fontSize: 24 }}>category</span>
+                    <small>Calendar</small>
                 </Link>
-                <Link href="/" className="nav-link text-center" style={{ color: router.pathname === '/' ? '#007bff' : '#888' }}>
-                    <span className="material-icons" style={{ fontSize: 24, display: 'block' }}>menu_book</span>
-                    <small style={{ fontSize: 12 }}>Books</small>
+                <Link href="/books" className="nav-link d-flex flex-column align-items-center justify-content-center" style={{ color: router.pathname === '/books' ? '#007bff' : '#888' }}>
+                    <span className="material-icons" style={{ fontSize: 24 }}>menu_book</span>
+                    <small>Books</small>
                 </Link>
-                <Link href="/messenger" className="nav-link text-center" style={{ color: router.pathname === '/messenger' ? '#007bff' : '#888' }}>
-                    <span className="material-icons" style={{ fontSize: 24, display: 'block' }}>chat</span>
-                    <small style={{ fontSize: 12 }}>Messenger</small>
-                </Link>
-                {token ? (
+                {isLoggedIn ? (
                     <button
-                        className="nav-link text-center btn btn-link p-0"
+                        className="nav-link d-flex flex-column align-items-center justify-content-center btn btn-link p-0"
                         style={{ color: '#888' }}
                         onClick={logout}
                     >
-                        <span className="material-icons" style={{ fontSize: 24, display: 'block' }}>logout</span>
-                        <small style={{ fontSize: 12 }}>Logout</small>
+                        <span className="material-icons" style={{ fontSize: 24 }}>logout</span>
+                        <small>Logout</small>
                     </button>
                 ) : (
-                    <Link href="/login" className="nav-link text-center" style={{ color: router.pathname === '/login' ? '#007bff' : '#888' }}>
-                        <span className="material-icons" style={{ fontSize: 24, display: 'block' }}>login</span>
-                        <small style={{ fontSize: 12 }}>Login</small>
+                    <Link href="/login" className="nav-link d-flex flex-column align-items-center justify-content-center" style={{ color: '#888' }}>
+                        <span className="material-icons" style={{ fontSize: 24 }}>login</span>
+                        <small>Login</small>
                     </Link>
                 )}
             </nav>
-            {/* Google Material Icons CDN */}
+
+
+            {/* Material Icons + Bootstrap Dropdown */}
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-            {/* Add margin to content to avoid overlap */}
             <style jsx global>{`
-                body {
-                    padding-top: 56px;
-                }
-                @media (max-width: 767.98px) {
-                    body {
-                        padding-bottom: 56px;
-                    }
-                }
-            `}</style>
+        body {
+          padding-top: 56px;
+        }
+        @media (max-width: 767.98px) {
+          body {
+            padding-bottom: 56px;
+          }
+        }
+      `}</style>
         </>
     );
 }
