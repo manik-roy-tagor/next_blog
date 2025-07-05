@@ -3,9 +3,14 @@ import axios from 'axios';
 import Head from 'next/head';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import Link from 'next/link';
-import TopPosts from '../../components/TopPosts';
+import TopPosts from '@/components/TopPosts';
+import CommentsSection from '@/components/CommentsSection';
+
 
 const BlogPage = ({ blog, topPosts }) => {
+
+  const user = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : null;
+
   return (
     <>
       <Head>
@@ -48,12 +53,14 @@ const BlogPage = ({ blog, topPosts }) => {
                 <Card.Title className="fw-bold fs-3 text-primary">{blog?.title}</Card.Title>
                 <Card.Text style={{ fontSize: '1.1rem', color: '#334155' }}>{blog?.content}</Card.Text>
               </Card.Body>
+              <CommentsSection blogId={blog.id} user={user} />
+
             </Card>
           </Col>
 
           {/* Right: Top Posts */}
           <Col md={3} className="d-none d-md-block">
-              <TopPosts />
+            <TopPosts />
 
           </Col>
         </Row>
