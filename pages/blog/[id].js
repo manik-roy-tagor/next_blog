@@ -6,6 +6,7 @@ import Link from 'next/link';
 import TopPosts from '@/components/TopPosts';
 import CommentsSection from '@/components/CommentsSection';
 import SponsorCard from '../../components/SponsorCard';
+import CategorySidebar from '../../components/CategorySidebar';
 
 
 const BlogPage = ({ blog, topPosts }) => {
@@ -26,20 +27,7 @@ const BlogPage = ({ blog, topPosts }) => {
         <Row>
           {/* Left: Categories */}
           <Col md={3} className="d-none d-md-block">
-            <Card className="shadow-sm border-0 mb-4">
-              <Card.Header className="bg-primary text-white fw-bold">Categories</Card.Header>
-              <Card.Body>
-                <ul className="list-unstyled mb-0">
-                  {['Technology', 'Lifestyle', 'Travel', 'Education', 'Health'].map(cat => (
-                    <li key={cat} className="mb-2">
-                      <a href="#" className="text-decoration-none text-dark d-flex align-items-center">
-                        <span className="me-2">📁</span> {cat}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </Card.Body>
-            </Card>
+            <CategorySidebar />
           </Col>
 
           {/* Center: Blog Content */}
