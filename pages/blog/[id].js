@@ -73,17 +73,19 @@ const BlogPage = ({ blog, topPosts }) => {
 
 // Server-side rendering
 export async function getServerSideProps(context) {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   const { id } = context.params;
   let blog = null;
   let topPosts = [];
 
   try {
-    const blogRes = await axios.get(`http://localhost/iyflalmonirhat-api/api/blog.php?id=${id}`);
+    const blogRes = await axios.get(`${API_URL}blog.php?id=${id}`);
     if (blogRes.data.status === 'success') {
       blog = blogRes.data.data;
     }
 
-    const topRes = await axios.get(`http://localhost/iyflalmonirhat-api/api/top-blogs.php`);
+    const topRes = await axios.get(`${API_URL}top-blogs.php`);
     if (topRes.data.status === 'success') {
       topPosts = topRes.data.data;
     }

@@ -96,7 +96,7 @@ const CommentsSection = ({ blogId, user }) => {
     const renderComments = (comments, level = 0) => {
         return comments.map((comment) => (
             <div key={comment.id} style={{ marginLeft: `${level * 20}px`, marginBottom: '15px' }}>
-                <div className="border p-3 rounded bg-light-subtle shadow-sm">
+                <div className="border p-3 rounded bg-light-subtle shadow-sm" style={{marginBottom: '10px'}}>
                     <strong>{comment.user}</strong>
                     <p className="mb-2">{comment.text}</p>
                     <Button

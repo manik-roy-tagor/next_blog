@@ -9,6 +9,7 @@ import BlogCard from '@/components/BlogCard';
 import TopUserList from '@/components/TopUserList';
 import AddPost from '@/components/AddPost';
 import SponsorCard from '../components/SponsorCard';
+import CategorySidebar from '../components/CategorySidebar';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -74,20 +75,7 @@ export default function HomePage() {
         <Row>
           <Col md={3} className="mb-4 d-none d-md-block">
             <div style={{ position: 'fixed', top: '80px', left: 0, width: '23%', height: '80vh', overflowY: 'auto', paddingRight: '15px' }}>
-              <div className="shadow-sm border-0 bg-white">
-                <div className="bg-primary text-white fw-bold p-2">Categories</div>
-                <div className="p-2">
-                  <ul className="list-unstyled mb-0">
-                    {['Technology', 'Lifestyle', 'Travel', 'Education', 'Health'].map((cat) => (
-                      <li key={cat} className="mb-2">
-                        <a href="#" className="text-decoration-none text-dark d-flex align-items-center">
-                          <span className="me-2">📁</span> {cat}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+              <CategorySidebar />
             </div>
           </Col>
 
