@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import api from '@/utils/axios';
+
 
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;

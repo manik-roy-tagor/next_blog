@@ -11,6 +11,8 @@ import AddPost from '@/components/AddPost';
 import SponsorCard from '../components/SponsorCard';
 import CategorySidebar from '../components/CategorySidebar';
 
+
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function HomePage() {
@@ -57,6 +59,7 @@ export default function HomePage() {
     <>
       <Head>
         <title>IYF Lalmonirhat - Youth Blog & Community</title>
+        <meta charset="UTF-8"></meta>
         <meta name="description" content="Explore blogs from youth of Lalmonirhat. Stay updated with ideas, stories, opinions, and news." />
         <meta name="keywords" content="blog, youth, IYFL, Lalmonirhat, community, stories, education" />
         <meta name="author" content="IYFL Lalmonirhat" />

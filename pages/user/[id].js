@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Container, Row, Col, Card, Spinner, Button } from 'react-bootstrap';
 import BlogCard from '@/components/BlogCard';
 import { ToastContainer } from 'react-toastify';
-import AddPost from '../../components/Addpost';
+import AddPost from '@/components/AddPost';
 import SponsorCard from '../../components/SponsorCard';
 import Head from 'next/head';
 

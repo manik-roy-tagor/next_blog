@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-
+import { FaBars } from 'react-icons/fa';
+import LeftSidebar from './LeftSidebar';
 
 export default function Navbar() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
-    const [userid, setUserid] = useState('');
+    const [userId, setUserId] = useState('');
+    const [showSidebar, setShowSidebar] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -18,7 +20,7 @@ export default function Navbar() {
             try {
                 const parsed = JSON.parse(user);
                 setUsername(parsed.name || 'User');
-                setUserid(parsed.id || '');
+                setUserId(parsed.id || '');
             } catch {
                 setUsername('User');
             }
@@ -37,7 +39,7 @@ export default function Navbar() {
 
     return (
         <>
-            {/* Header Navbar */}
+            {/* Top Navbar */}
             <nav
                 className="navbar navbar-expand-lg px-3"
                 style={{
@@ -49,67 +51,50 @@ export default function Navbar() {
                     zIndex: 1000,
                 }}
             >
-                <Link href="/" className="navbar-brand text-white">
-                    Giridhari Lal
-                </Link>
+                <button className="btn btn-outline-light me-3 d-lg-none" onClick={() => setShowSidebar(true)}>
+                    <FaBars />
+                </button>
+
+                <Link href="/" className="navbar-brand text-white">Giridhari Lal</Link>
+
                 <div className="ms-auto d-flex align-items-center">
                     {isLoggedIn ? (
-                        <div
-                            className="d-flex justify-content-between align-items-center"
-                            style={{ flexDirection: 'row' }} // Ensures buttons are aligned in a row
-                        >
-                            {/* User Profile Button */}
-                            <Link href={`/user/${userid}`}
-                                className="btn btn-outline-light dropdown-toggle d-flex align-items-center"
-                                type="button"
-                                id="userMenu"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                                style={{ marginRight: '8px', padding: '8px 16px' }} // Space between the profile button and logout
+                        <div className="d-flex align-items-center">
+                            <Link
+                                href={`/user/${userId}`}
+                                className="btn btn-outline-light me-2 d-flex align-items-center"
                             >
                                 <span className="material-icons me-1" style={{ fontSize: 20 }}>account_circle</span>
                                 {username}
                             </Link>
-
-                            {/* Logout Button */}
                             <button
                                 onClick={logout}
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    padding: '8px 16px',
-                                    backgroundColor: '#fff',
-                                    border: '1px solid #fff',
-                                    borderRadius: '4px',
-                                    color: '#333',
-                                    fontSize: '16px',
-                                    cursor: 'pointer',
-                                    textAlign: 'left',
-                                    gap: '8px',
-                                }}
-                                className="d-none d-md-flex"  // Hide on small devices, show on medium and above
+                                className="btn btn-light text-dark d-none d-md-inline"
                             >
-                                <span className="material-icons" style={{ fontSize: 20 }}>logout</span>
-                                Logout
+                                <span className="material-icons" style={{ fontSize: 20 }}>logout</span> Logout
                             </button>
-
-
                         </div>
                     ) : (
                         <>
-                            <Link href="/login" className="btn btn-outline-light me-2">
-                                Login
-                            </Link>
-                            <Link href="/register" className="btn btn-outline-light">
-                                Register
-                            </Link>
+                            <Link href="/login" className="btn btn-outline-light me-2">Login</Link>
+                            <Link href="/register" className="btn btn-outline-light">Register</Link>
                         </>
                     )}
                 </div>
-
             </nav>
 
-            {/* Footer Navbar (Mobile) */}
+            {/* Left Sidebar Component */}
+            <LeftSidebar
+                show={showSidebar}
+                handleClose={() => setShowSidebar(false)}
+                isLoggedIn={isLoggedIn}
+                userId={userId}
+                userName={username}
+                onLogout={logout}
+            />
+
+
+            {/* Bottom Mobile Navbar */}
             <nav
                 className="navbar navbar-expand d-flex d-md-none justify-content-around align-items-center"
                 style={{
@@ -130,31 +115,14 @@ export default function Navbar() {
                 </Link>
                 <Link href="/topposts" className="nav-link d-flex flex-column align-items-center justify-content-center" style={{ color: router.pathname === '/topposts' ? '#007bff' : '#888' }}>
                     <span className="material-icons" style={{ fontSize: 24 }}>star</span>
-                    <small>Top Posts</small>
+                    <small>Top</small>
                 </Link>
                 <Link href="/users" className="nav-link d-flex flex-column align-items-center justify-content-center" style={{ color: router.pathname === '/users' ? '#007bff' : '#888' }}>
-                    <span className="material-icons" style={{ fontSize: 24 }}>menu_book</span>
+                    <span className="material-icons" style={{ fontSize: 24 }}>group</span>
                     <small>Users</small>
                 </Link>
-                {isLoggedIn ? (
-                    <button
-                        className="nav-link d-flex flex-column align-items-center justify-content-center btn btn-link p-0"
-                        style={{ color: '#888' }}
-                        onClick={logout}
-                    >
-                        <span className="material-icons" style={{ fontSize: 24 }}>logout</span>
-                        <small>Logout</small>
-                    </button>
-                ) : (
-                    <Link href="/login" className="nav-link d-flex flex-column align-items-center justify-content-center" style={{ color: '#888' }}>
-                        <span className="material-icons" style={{ fontSize: 24 }}>login</span>
-                        <small>Login</small>
-                    </Link>
-                )}
             </nav>
 
-
-            {/* Material Icons + Bootstrap Dropdown */}
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
             <style jsx global>{`
         body {

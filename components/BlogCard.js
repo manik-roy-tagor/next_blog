@@ -5,10 +5,11 @@ import Link from 'next/link';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export default function BlogCard({ blog, onLike }) {
-
-
+  
   const handleLike = async () => {
     const user = localStorage.getItem('user');
     if (!user) {

@@ -5,6 +5,10 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&family=Noto+Sans+Bengali:wght@400;700&display=swap"
+            rel="stylesheet"
+          />
           {/* Google Analytics GA4 Script */}
           <script async src={`https://www.googletagmanager.com/gtag/js?id=YOUR_MEASUREMENT_ID`}></script>
           <script

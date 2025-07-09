@@ -4,6 +4,7 @@ import { Button, Form, Spinner, Toast } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { toast, ToastContainer } from 'react-toastify';
 
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const CommentsSection = ({ blogId, user }) => {
@@ -96,7 +97,7 @@ const CommentsSection = ({ blogId, user }) => {
     const renderComments = (comments, level = 0) => {
         return comments.map((comment) => (
             <div key={comment.id} style={{ marginLeft: `${level * 20}px`, marginBottom: '15px' }}>
-                <div className="border p-3 rounded bg-light-subtle shadow-sm" style={{marginBottom: '10px'}}>
+                <div className="border rounded bg-light-subtle shadow-sm" style={{marginBottom: '10px', padding: '15px'}}>
                     <strong>{comment.user}</strong>
                     <p className="mb-2">{comment.text}</p>
                     <Button
@@ -121,7 +122,7 @@ const CommentsSection = ({ blogId, user }) => {
     };
 
     return (
-        <div className="mt-4">
+        <div className="mt-4 px-4">
             <h4 className="fw-bold mb-4 text-dark">Comments</h4>
 
             {renderComments(comments)}
